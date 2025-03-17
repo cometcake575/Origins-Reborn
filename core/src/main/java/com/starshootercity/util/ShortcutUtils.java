@@ -2,9 +2,16 @@ package com.starshootercity.util;
 
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.events.ServerTickEndEvent;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import org.bukkit.craftbukkit.v1_21_R3.inventory.CraftItemStack;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -42,6 +49,29 @@ public class ShortcutUtils {
             adventure.close();
             adventure = null;
         }
+    }
+
+    // TODO Make this work fully, split up the TextComponent and copy over every attribute
+    // TODO Then move this into NMS Invokers, and change them to use their respective Spigot versions (will need to modify for pre-component versions)
+    public static ItemStack setDisplayName(ItemStack item, TextComponent component) {
+        net.minecraft.network.chat.Component c = convert(component);
+        net.minecraft.world.item.ItemStack i = CraftItemStack.asNMSCopy(item);
+        i.set(DataComponents.CUSTOM_NAME, c);
+        return CraftItemStack.asBukkitCopy(i);
+    }
+
+    public static net.minecraft.network.chat.Component convert(TextComponent component) {
+        net.minecraft.network.chat.Component c = net.minecraft.network.chat.Component.literal("").setStyle(
+                Style.EMPTY.withFont(ResourceLocation.parse(""))
+        );
+
+        for (Component comp : component.children()) {
+            // TODO Check what happens when on the lowest child component
+            if (comp instanceof TextComponent comp2) {
+                // TODO Break apart further with recursion
+            }
+        }
+        return c;
     }
 
     public static Set<Action> LEFT_CLICK = Set.of(Action.LEFT_CLICK_AIR, Action.LEFT_CLICK_BLOCK);

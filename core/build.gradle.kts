@@ -1,10 +1,12 @@
 plugins {
     id("java")
+    id("io.github.patrick.remapper") version "1.4.2"
 }
 
 repositories {
     // Maven Central
     mavenCentral()
+    mavenLocal()
 
     // Server software
     //maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
@@ -54,7 +56,9 @@ dependencies {
     //compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
 
     // Spigot
-    compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
+    // https://blog.jeff-media.com/nms-use-mojang-mappings-for-your-spigot-plugins/
+    compileOnly("org.spigotmc:spigot:1.21.4-R0.1-SNAPSHOT:remapped-mojang")
+    //compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("net.kyori:adventure-platform-bukkit:4.3.4")
 
     // Plugin code
