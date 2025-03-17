@@ -10,8 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/1.17.1" />
-            <option value="$PROJECT_DIR$/1.18" />
             <option value="$PROJECT_DIR$/1.18.1" />
             <option value="$PROJECT_DIR$/1.18.2" />
             <option value="$PROJECT_DIR$/1.19" />

@@ -2,8 +2,6 @@ rootProject.name = "Origins-Reborn"
 include("core")
 include("1.20.4")
 include("1.18.1")
-include("1.17.1")
-include("1.18")
 include("version")
 include("1.20")
 include("1.20.1")

@@ -25,6 +25,8 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class ShortcutUtils {
 
+
+
     public static Set<Action> LEFT_CLICK = Set.of(Action.LEFT_CLICK_AIR, Action.LEFT_CLICK_BLOCK);
     public static Set<Action> RIGHT_CLICK = Set.of(Action.RIGHT_CLICK_AIR, Action.RIGHT_CLICK_BLOCK);
 
