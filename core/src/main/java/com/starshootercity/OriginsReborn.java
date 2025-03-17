@@ -8,6 +8,7 @@ import com.starshootercity.events.PlayerLeftClickEvent;
 import com.starshootercity.packetsenders.*;
 import com.starshootercity.skript.SkriptInitializer;
 import com.starshootercity.util.Metrics;
+import com.starshootercity.util.ShortcutUtils;
 import com.starshootercity.util.config.ConfigManager;
 import com.starshootercity.util.SkinManager;
 import com.starshootercity.util.WorldGuardHook;
@@ -138,6 +139,7 @@ public class OriginsReborn extends OriginsAddon {
         freshAir = new FreshAir();
 
         initializeNMSInvoker(this);
+        ShortcutUtils.initialize(this);
         saveDefaultConfig();
         ConfigManager.Option.initialize();
 

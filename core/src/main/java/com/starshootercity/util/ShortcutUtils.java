@@ -2,6 +2,7 @@ package com.starshootercity.util;
 
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.events.ServerTickEndEvent;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.LivingEntity;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.event.block.Action;
 import org.geysermc.api.Geyser;
@@ -25,7 +27,22 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class ShortcutUtils {
 
+    private static BukkitAudiences adventure;
 
+    public static BukkitAudiences adventure() {
+        return adventure;
+    }
+
+    public static void initialize(JavaPlugin plugin) {
+        adventure = BukkitAudiences.create(plugin);
+    }
+
+    public static void shutdown(JavaPlugin plugin) {
+        if (adventure != null) {
+            adventure.close();
+            adventure = null;
+        }
+    }
 
     public static Set<Action> LEFT_CLICK = Set.of(Action.LEFT_CLICK_AIR, Action.LEFT_CLICK_BLOCK);
     public static Set<Action> RIGHT_CLICK = Set.of(Action.RIGHT_CLICK_AIR, Action.RIGHT_CLICK_BLOCK);
