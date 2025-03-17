@@ -1,6 +1,6 @@
 package com.starshootercity.abilities;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.Origin;
 import com.starshootercity.OriginSwapper;
 import org.bukkit.Bukkit;

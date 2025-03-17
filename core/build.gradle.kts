@@ -3,11 +3,25 @@ plugins {
 }
 
 repositories {
+    // Maven Central
     mavenCentral()
-    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+
+    // Server software
+    //maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+
+    // Spigot
+    maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
+    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
+
+    // PAPI
     maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
+
+    // JitPack
     maven { url = uri("https://jitpack.io") }
+
     maven { url = uri("https://repo.opencollab.dev/main/") }
+
+    // ViaVersion
     maven { url = uri("https://repo.viaversion.com") }
 
     maven("https://repo.codemc.org/repository/maven-public/") {
@@ -37,7 +51,11 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.5")
 
     // Server software
-    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    //compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+
+    // Spigot
+    compileOnly("org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-platform-bukkit:4.3.4")
 
     // Plugin code
     compileOnly(project(":version"))

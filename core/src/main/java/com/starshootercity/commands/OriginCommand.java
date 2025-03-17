@@ -5,6 +5,7 @@ import com.starshootercity.abilities.AbilityRegister;
 import com.starshootercity.cooldowns.Cooldowns;
 import com.starshootercity.events.PlayerSwapOriginEvent;
 import com.starshootercity.util.CompressionUtils;
+import com.starshootercity.util.ShortcutUtils;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -91,7 +92,7 @@ public class OriginCommand implements CommandExecutor, TabCompleter {
                             return true;
                         }
                         for (ExchangeRequest request : exchangeRequests.getOrDefault(player, List.of())) {
-                            if (request.expireTime > Bukkit.getCurrentTick()) continue;
+                            if (request.expireTime > ShortcutUtils.getCurrentTick()) continue;
                             String l = request.layer.substring(0, 0).toUpperCase() + request.layer.substring(1);
                             String layer = request.layer;
                             if (request.p2.equals(player) && request.p1.equals(target)) {
@@ -114,7 +115,7 @@ public class OriginCommand implements CommandExecutor, TabCompleter {
                         if (args.length != 3) layer = "origin";
                         else layer = args[2];
 
-                        exchangeRequests.get(target).add(new ExchangeRequest(player, target, Bukkit.getCurrentTick() + 6000, layer));
+                        exchangeRequests.get(target).add(new ExchangeRequest(player, target, ShortcutUtils.getCurrentTick() + 6000, layer));
                         target.sendMessage(Component.text("%s is requesting to swap %s with you, type /origin exchange %s to accept. The request will expire in 5 minutes.".formatted(layer, player.getName(), player.getName())).color(NamedTextColor.AQUA));
                         player.sendMessage(Component.text("Requesting to swap %s with %s. The request will expire in 5 minutes.".formatted(layer, target.getName())).color(NamedTextColor.AQUA));
                     } else {

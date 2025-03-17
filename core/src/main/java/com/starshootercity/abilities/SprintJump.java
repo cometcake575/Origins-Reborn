@@ -1,6 +1,6 @@
 package com.starshootercity.abilities;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;

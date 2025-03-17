@@ -1,7 +1,7 @@
 package com.starshootercity.abilities;
 
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
 import net.kyori.adventure.key.Key;

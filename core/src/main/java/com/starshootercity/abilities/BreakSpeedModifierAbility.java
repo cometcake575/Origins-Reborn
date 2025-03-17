@@ -1,7 +1,7 @@
 package com.starshootercity.abilities;
 
 import com.destroystokyo.paper.MaterialTags;
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.*;
 import com.starshootercity.packetsenders.OriginsRebornBlockDamageAbortEvent;
 import com.starshootercity.util.ShortcutUtils;
@@ -247,7 +247,7 @@ public interface BreakSpeedModifierAbility extends Ability {
                             ambient = effect.isAmbient();
                             showParticles = effect.hasParticles();
                             if (effect.getAmplifier() != -1) {
-                                storedEffects.put(player, new SavedPotionEffect(effect, Bukkit.getCurrentTick()));
+                                storedEffects.put(player, new SavedPotionEffect(effect, ShortcutUtils.getCurrentTick()));
                                 player.removePotionEffect(OriginsReborn.getNMSInvoker().getMiningFatigueEffect());
                             }
                         }
@@ -272,7 +272,7 @@ public interface BreakSpeedModifierAbility extends Ability {
                             SavedPotionEffect effect = storedEffects.get(player);
                             storedEffects.remove(player);
                             PotionEffect potionEffect = effect.effect();
-                            int time = potionEffect.getDuration() - (Bukkit.getCurrentTick() - effect.currentTime());
+                            int time = potionEffect.getDuration() - (ShortcutUtils.getCurrentTick() - effect.currentTime());
                             if (time > 0) {
                                 player.addPotionEffect(new PotionEffect(
                                         potionEffect.getType(),

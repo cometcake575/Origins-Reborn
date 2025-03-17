@@ -1,8 +1,9 @@
 package com.starshootercity.abilities;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
+import com.starshootercity.util.ShortcutUtils;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -82,7 +83,7 @@ public class WaterBreathing implements Listener, VisibleAbility {
                         player.getPersistentDataContainer().set(dehydrationKey, OriginSwapper.BooleanPDT.BOOLEAN, true);
                         player.setRemainingAir(-5);
                         player.getPersistentDataContainer().set(dehydrationKey, OriginSwapper.BooleanPDT.BOOLEAN, false);
-                        player.getPersistentDataContainer().set(damageKey, PersistentDataType.INTEGER, Bukkit.getCurrentTick());
+                        player.getPersistentDataContainer().set(damageKey, PersistentDataType.INTEGER, ShortcutUtils.getCurrentTick());
                         OriginsReborn.getNMSInvoker().dealDrowningDamage(player, 2);
                     }
                 }
@@ -97,7 +98,7 @@ public class WaterBreathing implements Listener, VisibleAbility {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (event.getPlayer().getPersistentDataContainer().getOrDefault(damageKey, PersistentDataType.INTEGER, 0) >= Bukkit.getCurrentTick()) {
+        if (event.getPlayer().getPersistentDataContainer().getOrDefault(damageKey, PersistentDataType.INTEGER, 0) >= ShortcutUtils.getCurrentTick()) {
             event.deathMessage(event.getPlayer().displayName().append(Component.text(" didn't manage to keep wet")));
         }
     }

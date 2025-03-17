@@ -34,6 +34,7 @@ public class AbilityRegister {
     public static Map<Key, DependencyAbility> dependencyAbilityMap = new HashMap<>();
     public static Map<Key, List<MultiAbility>> multiAbilityMap = new HashMap<>();
     public static List<BreakSpeedModifierAbility> breakSpeedModifierAbilities = new ArrayList<>();
+    public static List<AttributeModifierAbility> attributeModifierAbilities = new ArrayList<>();
     public static List<SkinChangingAbility> skinChangingAbilities = new ArrayList<>();
 
     public static Map<Key, List<AbilityRunnable>> runOnRegisters = new HashMap<>();
@@ -123,6 +124,7 @@ public class AbilityRegister {
         }
         if (ability instanceof AttributeModifierAbility ama) {
             ama.setupAttributeConfig();
+            attributeModifierAbilities.add(ama);
         }
         if (ability instanceof BreakSpeedModifierAbility breakSpeedModifierAbility) {
             breakSpeedModifierAbilities.add(breakSpeedModifierAbility);

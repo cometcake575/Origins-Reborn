@@ -1,6 +1,6 @@
 package com.starshootercity.abilities;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.events.PlayerLeftClickEvent;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
@@ -23,7 +23,7 @@ public class Phantomize implements DependencyAbility, Listener {
             if (isEnabled(player) && player.getFoodLevel() <= 6) {
                 phantomizedPlayers.put(player.getUniqueId(), false);
                 PhantomizeToggleEvent phantomizeToggleEvent = new PhantomizeToggleEvent(player, false);
-                phantomizeToggleEvent.callEvent();
+                Bukkit.getPluginManager().callEvent(phantomizeToggleEvent);
             }
         }
     }

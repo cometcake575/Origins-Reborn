@@ -1,6 +1,7 @@
 package com.starshootercity;
 
 import com.starshootercity.events.PlayerSwapOriginEvent;
+import com.starshootercity.util.ShortcutUtils;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -102,7 +103,7 @@ public class OrbOfOrigin implements Listener {
         if (event.getClickedBlock() != null) {
             if (event.getClickedBlock().getType().isInteractable()) return;
         }
-        if (!event.getAction().isRightClick()) return;
+        if (!ShortcutUtils.RIGHT_CLICK.contains(event.getAction())) return;
         ItemStack item = event.getItem();
         if (item == null) return;
         ItemMeta meta = item.getItemMeta();

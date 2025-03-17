@@ -1,7 +1,7 @@
 package com.starshootercity;
 
 import com.destroystokyo.paper.event.player.PlayerPostRespawnEvent;
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.abilities.*;
 import com.starshootercity.commands.OriginCommand;
 import com.starshootercity.events.PlayerSwapOriginEvent;
@@ -477,28 +477,26 @@ public class OriginSwapper implements Listener {
     }
 
     public static void applyAttributeChanges(Player player) {
-        for (Ability ability : AbilityRegister.abilityMap.values()) {
-            if (ability instanceof AttributeModifierAbility attributeModifierAbility) {
-                AttributeInstance instance;
-                try {
-                    instance = player.getAttribute(attributeModifierAbility.getAttribute());
-                } catch (IllegalArgumentException e) {
-                    continue;
+        for (AttributeModifierAbility ability : AbilityRegister.attributeModifierAbilities) {
+            AttributeInstance instance;
+            try {
+                instance = player.getAttribute(ability.getAttribute());
+            } catch (IllegalArgumentException e) {
+                continue;
+            }
+            if (instance == null) continue;
+            NamespacedKey key = new NamespacedKey(OriginsReborn.getInstance(), ability.getKey().asString().replace(":", "-"));
+            if (ability.hasAbility(player)) {
+                AttributeModifier modifier = OriginsReborn.getNMSInvoker().getAttributeModifier(instance, key);
+                if (modifier != null) {
+                    if (modifier.getAmount() == ability.getTotalAmount(player)) {
+                        continue;
+                    } else instance.removeModifier(modifier);
                 }
-                if (instance == null) continue;
-                NamespacedKey key = new NamespacedKey(OriginsReborn.getInstance(), ability.getKey().asString().replace(":", "-"));
-                if (ability.hasAbility(player)) {
-                    AttributeModifier modifier = OriginsReborn.getNMSInvoker().getAttributeModifier(instance, key);
-                    if (modifier != null) {
-                        if (modifier.getAmount() == attributeModifierAbility.getTotalAmount(player)) {
-                            continue;
-                        } else instance.removeModifier(modifier);
-                    }
-                    OriginsReborn.getNMSInvoker().addAttributeModifier(instance, key, attributeModifierAbility.getKey().asString(), attributeModifierAbility.getTotalAmount(player), attributeModifierAbility.getActualOperation());
-                } else {
-                    AttributeModifier am = OriginsReborn.getNMSInvoker().getAttributeModifier(instance, key);
-                    if (am != null) instance.removeModifier(am);
-                }
+                OriginsReborn.getNMSInvoker().addAttributeModifier(instance, key, ability.getKey().asString(), ability.getTotalAmount(player), ability.getActualOperation());
+            } else {
+                AttributeModifier am = OriginsReborn.getNMSInvoker().getAttributeModifier(instance, key);
+                if (am != null) instance.removeModifier(am);
             }
         }
     }
@@ -507,7 +505,7 @@ public class OriginSwapper implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         loadOrigins(event.getPlayer());
         resetAttributes(event.getPlayer());
-        lastJoinedTick.put(event.getPlayer(), Bukkit.getCurrentTick());
+        lastJoinedTick.put(event.getPlayer(), ShortcutUtils.getCurrentTick());
         for (String layer : AddonLoader.layers) {
             if (event.getPlayer().getOpenInventory().getType() == InventoryType.CHEST) {
                 continue;
@@ -557,7 +555,7 @@ public class OriginSwapper implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) {
             int delay = OriginsReborn.getInstance().getConfig().getInt("origin-selection.delay-before-required", 0);
             if (!lastJoinedTick.containsKey(player)) lastJoinedTick.put(player, event.getTickNumber());
-            if (Bukkit.getCurrentTick() - delay < lastJoinedTick.get(player)) continue;
+            if (ShortcutUtils.getCurrentTick() - delay < lastJoinedTick.get(player)) continue;
             if (shouldDisallowSelection(player, lastSwapReasons.getOrDefault(player, PlayerSwapOriginEvent.SwapReason.INITIAL))) {
                 player.setAllowFlight(AbilityRegister.canFly(player, true));
                 AbilityRegister.updateFlight(player, true);
@@ -568,8 +566,10 @@ public class OriginSwapper implements Listener {
                 player.setAllowFlight(AbilityRegister.canFly(player, false));
                 AbilityRegister.updateFlight(player, false);
             }
-            player.setInvisible(AbilityRegister.isInvisible(player));
-            applyAttributeChanges(player);
+            if (event.getTickNumber() % 15 == 0) {
+                player.setInvisible(AbilityRegister.isInvisible(player));
+                applyAttributeChanges(player);
+            }
             String layer = AddonLoader.getFirstUnselectedLayer(player);
             if (layer == null) continue;
             if (player.getOpenInventory().getType() != InventoryType.CHEST) {

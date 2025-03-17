@@ -1,6 +1,6 @@
 package com.starshootercity.abilities;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.SavedPotionEffect;
 import com.starshootercity.util.ShortcutUtils;
@@ -33,7 +33,7 @@ public class WaterVision implements Listener, VisibleAbility {
                         ambient = effect.isAmbient();
                         showParticles = effect.hasParticles();
                         if (!ShortcutUtils.isInfinite(effect)) {
-                            storedEffects.put(player, new SavedPotionEffect(effect, Bukkit.getCurrentTick()));
+                            storedEffects.put(player, new SavedPotionEffect(effect, ShortcutUtils.getCurrentTick()));
                             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
                         }
                     }
@@ -49,7 +49,7 @@ public class WaterVision implements Listener, VisibleAbility {
                         SavedPotionEffect effect = storedEffects.get(player);
                         storedEffects.remove(player);
                         PotionEffect potionEffect = effect.effect();
-                        int time = potionEffect.getDuration() - (Bukkit.getCurrentTick() - effect.currentTime());
+                        int time = potionEffect.getDuration() - (ShortcutUtils.getCurrentTick() - effect.currentTime());
                         if (time > 0) {
                             player.addPotionEffect(new PotionEffect(
                                     potionEffect.getType(),

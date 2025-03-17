@@ -217,7 +217,11 @@ public class ConfigManager {
 
             CONFIG_VERSION = new Option<>(SettingType.STRING, "config-version", "Config version - do not touch this!", VERSION);
 
-            LegacyConfigUpdater.updateConfig();
+            try {
+                LegacyConfigUpdater.updateConfig();
+            } catch (Throwable ignored) {
+
+            }
 
             makeOptionHeader("worlds", Collections.singletonList("Worlds used for some abilities"));
             makeOptionHeader("cooldowns", "Configuration for cooldowns");

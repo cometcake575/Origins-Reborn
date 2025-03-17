@@ -1,6 +1,6 @@
 package com.starshootercity.abilities;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.util.config.ConfigManager;
 import net.kyori.adventure.key.Key;
@@ -23,33 +23,32 @@ public class PumpkinHate implements Listener, VisibleAbility {
 
     @EventHandler
     public void onServerTickEnd(ServerTickEndEvent event) {
-        for (Player pumpkinWearer : Bukkit.getOnlinePlayers()) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                runForAbility(player, pumpkinHater -> {
-                    if (pumpkinWearer != pumpkinHater) {
-                        if (!ignoringPlayers.containsKey(pumpkinHater)) {
-                            ignoringPlayers.put(pumpkinHater, new ArrayList<>());
-                        }
-                        ItemStack helmet = pumpkinWearer.getInventory().getHelmet();
-                        if (helmet != null && helmet.getType() == Material.CARVED_PUMPKIN) {
-                            if (!ignoringPlayers.get(pumpkinHater).contains(pumpkinWearer)) {
-                                ignoringPlayers.get(pumpkinHater).add(pumpkinWearer);
-                            }
-
-                            byte data = getData(pumpkinWearer);
-
-                            OriginsReborn.getNMSInvoker().sendEntityData(pumpkinHater, pumpkinWearer, data);
-
-                            for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
-                                pumpkinHater.sendEquipmentChange(pumpkinWearer, equipmentSlot, new ItemStack(Material.AIR));
-                            }
-                        } else {
-                            ignoringPlayers.get(pumpkinHater).remove(pumpkinWearer);
-                            AbilityRegister.updateEntity(pumpkinHater, pumpkinWearer);
-                        }
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            runForAbility(player, pumpkinHater -> {
+                for (Player pumpkinWearer : Bukkit.getOnlinePlayers()) {
+                    if (pumpkinWearer == pumpkinHater) continue;
+                    if (!ignoringPlayers.containsKey(pumpkinHater)) {
+                        ignoringPlayers.put(pumpkinHater, new ArrayList<>());
                     }
-                });
-            }
+                    ItemStack helmet = pumpkinWearer.getInventory().getHelmet();
+                    if (helmet != null && helmet.getType() == Material.CARVED_PUMPKIN) {
+                        if (!ignoringPlayers.get(pumpkinHater).contains(pumpkinWearer)) {
+                            ignoringPlayers.get(pumpkinHater).add(pumpkinWearer);
+                        }
+
+                        byte data = getData(pumpkinWearer);
+
+                        OriginsReborn.getNMSInvoker().sendEntityData(pumpkinHater, pumpkinWearer, data);
+
+                        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+                            pumpkinHater.sendEquipmentChange(pumpkinWearer, equipmentSlot, new ItemStack(Material.AIR));
+                        }
+                    } else {
+                        ignoringPlayers.get(pumpkinHater).remove(pumpkinWearer);
+                        AbilityRegister.updateEntity(pumpkinHater, pumpkinWearer);
+                    }
+                }
+            });
         }
     }
 

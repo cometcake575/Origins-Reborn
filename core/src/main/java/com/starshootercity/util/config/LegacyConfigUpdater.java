@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 public class LegacyConfigUpdater {
@@ -226,15 +227,18 @@ public class LegacyConfigUpdater {
 
                 File inventories = new File(OriginsReborn.getInstance().getDataFolder(), "inventories.yml");
                 if (inventories.exists()) {
-                    Files.move(inventories.toPath(), Path.of(OriginsReborn.getInstance().getDataFolder().getPath(), "internals/inventories.yml"));
+                    Files.move(inventories.toPath(), Path.of(OriginsReborn.getInstance().getDataFolder().getPath(), "internals/inventories.yml"),
+                            StandardCopyOption.REPLACE_EXISTING);
                 }
                 File selectedOrigins = new File(OriginsReborn.getInstance().getDataFolder(), "selected-origins.yml");
                 if (selectedOrigins.exists()) {
-                    Files.move(selectedOrigins.toPath(), Path.of(OriginsReborn.getInstance().getDataFolder().getPath(), "internals/selected-origins.yml"));
+                    Files.move(selectedOrigins.toPath(), Path.of(OriginsReborn.getInstance().getDataFolder().getPath(), "internals/selected-origins.yml"),
+                            StandardCopyOption.REPLACE_EXISTING);
                 }
                 File usedOrigins = new File(OriginsReborn.getInstance().getDataFolder(), "used-origins.yml");
                 if (usedOrigins.exists()) {
-                    Files.move(usedOrigins.toPath(), Path.of(OriginsReborn.getInstance().getDataFolder().getPath(), "internals/used-origins.yml"));
+                    Files.move(usedOrigins.toPath(), Path.of(OriginsReborn.getInstance().getDataFolder().getPath(), "internals/used-origins.yml"),
+                            StandardCopyOption.REPLACE_EXISTING);
                 }
 
                 File cooldownConfig = new File(OriginsReborn.getInstance().getDataFolder(), "cooldown-config.yml");
@@ -318,9 +322,7 @@ public class LegacyConfigUpdater {
                 }
                 saveConfig();
 
-            } catch (IOException | InvalidConfigurationException e) {
-                throw new RuntimeException(e);
-            }
+            } catch (IOException | InvalidConfigurationException ignored) {}
         }
     }
 

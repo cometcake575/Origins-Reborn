@@ -18,7 +18,7 @@ public class LayEggs implements Listener, VisibleAbility {
         if (event.getSkipReason() == TimeSkipEvent.SkipReason.NIGHT_SKIP) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 runForAbility(p, player -> {
-                    if (player.isDeeplySleeping()) {
+                    if (player.isSleeping()) {
                         player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.EGG));
                         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, SoundCategory.PLAYERS, 1, 1);
                     }

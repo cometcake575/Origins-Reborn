@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Conduit;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class ConduitPowerOnLand implements Ability {
 
@@ -26,6 +28,7 @@ public class ConduitPowerOnLand implements Ability {
     }
 
     private final PotionEffect conduitPower = new PotionEffect(PotionEffectType.CONDUIT_POWER, 260, 0, true, true, true);
+    private final Predicate<Block> isConduit = block -> block.getType().equals(Material.CONDUIT);
 
     @Override
     public void initialize() {
@@ -35,7 +38,7 @@ public class ConduitPowerOnLand implements Ability {
                 Set<Player> players = new HashSet<>();
                 for (World world : Bukkit.getWorlds()) {
                     for (Chunk chunk : world.getLoadedChunks()) {
-                        Collection<BlockState> conduits = chunk.getTileEntities(block -> block.getType().equals(Material.CONDUIT), true);
+                        Collection<BlockState> conduits = chunk.getTileEntities(isConduit, true);
                         for (BlockState state : conduits) {
                             int radius = OriginsReborn.getNMSInvoker().getConduitRange((Conduit) state);
                             players.addAll(state.getLocation().getNearbyPlayers(radius));
@@ -43,7 +46,9 @@ public class ConduitPowerOnLand implements Ability {
                     }
                 }
 
-                for (Player player : players.stream().filter(player -> hasAbility(player) && !player.isInWater()).toList()) player.addPotionEffect(conduitPower);
+                for (Player player : players.stream().filter(player -> hasAbility(player) && !player.isInWater()).toList()) {
+                    player.addPotionEffect(conduitPower);
+                }
             }
         }.runTaskTimer(OriginsReborn.getInstance(), 0, 20);
     }

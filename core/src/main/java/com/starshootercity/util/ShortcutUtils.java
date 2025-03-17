@@ -1,6 +1,7 @@
 package com.starshootercity.util;
 
 import com.starshootercity.OriginsReborn;
+import com.starshootercity.events.ServerTickEndEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.LivingEntity;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.event.block.Action;
 import org.geysermc.api.Geyser;
 import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +24,9 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class ShortcutUtils {
+
+    public static Set<Action> LEFT_CLICK = Set.of(Action.LEFT_CLICK_AIR, Action.LEFT_CLICK_BLOCK);
+    public static Set<Action> RIGHT_CLICK = Set.of(Action.RIGHT_CLICK_AIR, Action.RIGHT_CLICK_BLOCK);
 
     public static void giveItemWithDrops(Player player, ItemStack... itemStacks) {
         for (ItemStack i : player.getInventory().addItem(itemStacks).values()) {
@@ -95,5 +100,9 @@ public class ShortcutUtils {
         if (OriginsReborn.getNMSInvoker().supportsInfiniteDuration()) {
             return -1;
         } else return 50000;
+    }
+
+    public static int getCurrentTick() {
+        return ServerTickEndEvent.getTickCount();
     }
 }

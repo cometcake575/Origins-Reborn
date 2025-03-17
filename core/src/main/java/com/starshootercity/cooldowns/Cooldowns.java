@@ -1,6 +1,6 @@
 package com.starshootercity.cooldowns;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import com.starshootercity.events.ServerTickEndEvent;
 import com.starshootercity.OriginSwapper;
 import com.starshootercity.OriginsReborn;
 import com.starshootercity.events.PlayerSwapOriginEvent;
