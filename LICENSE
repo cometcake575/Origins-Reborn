@@ -6,9 +6,11 @@ Origins-Reborn Plugin by Arun Kapila (cometcake575)
 -------------------------------------------------------------------------------
 Copyright (c) 2025 Arun Kapila – All Rights Reserved
 
-The modifications made to the original project by Arun Kapila are not licensed
-under the MIT license. These changes may not be copied, modified, distributed,
-or used in derivative works without express written permission.
+All original code in this project is © Arun Kapila and is **not** licensed under
+the MIT License. It may not be copied, modified, redistributed, or used in
+derivative works without express written permission.
+
+This project uses certain visual assets (e.g., textures) directly from the original Origins mod by apace100. These assets are reused under the terms of the MIT License. Full attribution is provided below.
 
 -------------------------------------------------------------------------------
 Original Origins Mod by apace100 - MIT License
@@ -33,3 +35,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+-------------------------------------------------------------------------------
+Attribution Notice
+-------------------------------------------------------------------------------
+This project is not affiliated with or endorsed by apace100 or the original Origins development team.  
+Origins-Reborn is an independent rewrite and adaptation made specifically for the PaperMC platform.
