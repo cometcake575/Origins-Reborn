@@ -1,23 +1,7 @@
-This project, Origins-Reborn is a standalone project inspired by the Origins mod by apace100 (MIT License).
-It includes original code written by Arun Kapila as well as portions derived from or based on the Origins mod.
+MIT License
 
--------------------------------------------------------------------------------
-Origins-Reborn Plugin by Arun Kapila (cometcake575)
--------------------------------------------------------------------------------
-
-Copyright (c) 2025 Arun Kapila – All Rights Reserved
-
-All original code in this project is © Arun Kapila and is not licensed under
-the MIT License. It may not be copied, modified, redistributed, or used in
-derivative works without express written permission.
-
-This project uses certain visual assets (e.g., textures) directly from the original Origins mod by apace100. These assets are reused under the terms of the MIT License. Full attribution is provided below.
-
--------------------------------------------------------------------------------
-Original Origins Mod by apace100 - MIT License
--------------------------------------------------------------------------------
-
-Copyright (c) 2020 apace100
+Copyright (c) 2026 cometcake575
+Original Origins mod Copyright (c) 2020 apace100
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,9 +20,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
--------------------------------------------------------------------------------
-Attribution Notice
--------------------------------------------------------------------------------
-This project is not affiliated with or endorsed by apace100 or the original Origins development team.  
-Origins-Reborn is an independent rewrite and adaptation made specifically for the PaperMC platform.
